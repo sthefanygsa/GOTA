@@ -23,5 +23,83 @@
         
         <a href="contato.html" class="btn-contact">Contato</a>
     </header>
+
+    <section id="calculadora" class="calculator-section">
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h2>Simulador de Tarifa</h2>
+            <p>Preencha os campos abaixo com os dados da sua fatura para calcular.</p>
+        </div>
+
+        <form id="form-calculadora" class="calculator-form" onsubmit="event.preventDefault();">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="input-consumo">01. Consumo Mensal (m3)</label>
+                    <input type="number" id="input-consumo" min="0" placeholder="Ex: 15" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="input-economias">02. Quantidade de Economias</label>
+                    <input type="number" id="input-economias" min="1" value="1" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="input-periodo">03. Período de Consumo (Dias)</label>
+                    <input type="number" id="input-periodo" min="1" value="30" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="select-cidade">04. Cidade</label>
+                    <select id="select-cidade" required>
+                        <option value="" disabled selected>Selecione sua cidade</option>
+                        <option value="sao-miguel">São Miguel Arcanjo</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="select-fornecimento">05. Tipo de Fornecimento</label>
+                    <select id="select-fornecimento" required>
+                        <option value="residencial-normal">Residencial Normal</option>
+                        <option value="residencial-social">Residencial Social</option>
+                        <option value="comercial">Comercial</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="select-ligacao">06. Tipo de Ligação</label>
+                    <select id="select-ligacao" required>
+                        <option value="agua-esgoto">Água e Esgoto</option>
+                        <option value="apenas-agua">Apenas Água</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-calcular">Calcular Tarifa</button>
+        </form>
+
+        <div id="resultado-painel" class="results-panel">
+            <h3>Resultado do Faturamento</h3>
+            <div class="results-grid">
+                <div class="result-item">
+                    <span>Consumo por Economia:</span>
+                    <strong id="res-consumo-economia">0.00 m3</strong>
+                </div>
+                <div class="result-item">
+                    <span>Tarifa de Água:</span>
+                    <strong id="res-valor-agua">R$ 0,00</strong>
+                </div>
+                <div class="result-item">
+                    <span>Tarifa de Esgoto:</span>
+                    <strong id="res-valor-esgoto">R$ 0,00</strong>
+                </div>
+                <div class="result-item total-highlight">
+                    <span>Valor Total Estimado:</span>
+                    <strong id="res-total-geral">R$ 0,00</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 </body>
 </html>

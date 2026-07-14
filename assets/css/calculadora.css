@@ -148,3 +148,159 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #006b75; 
 }
+
+/* --- SEÇÃO DA CALCULADORA --- */
+.calculator-section {
+    width: 100%;
+    padding: 80px 8%;
+    background-color: #f8fbfd; /* Um fundo levemente azulado para destacar do resto */
+    display: flex;
+    justify-content: center;
+}
+
+.calculator-container {
+    max-width: 800px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    border: 1px solid #eef4f8;
+}
+
+.calculator-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.calculator-header h2 {
+    font-size: 28px;
+    color: #4abbe0;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.calculator-header p {
+    font-size: 15px;
+    color: #777777;
+}
+
+/* Grid de Formuário: 2 colunas em telas grandes */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px 30px;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #333333;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #4abbe0;
+}
+
+/* Botão Bonitão */
+.btn-calcular {
+    width: 100%;
+    padding: 15px;
+    background-color: #4abbe0;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 40px;
+}
+
+.btn-calcular:hover {
+    background-color: #fdbf11;
+    transform: translateY(-2px);
+}
+
+
+/* Painel de Resultados */
+.results-panel {
+    border-top: 2px dashed #eef4f8;
+    padding-top: 30px;
+}
+
+.results-panel h3 {
+    font-size: 20px;
+    color: #333333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.result-item {
+    background: #f4f9fc;
+    padding: 15px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid #e6f0f6;
+}
+
+.result-item span {
+    font-size: 12px;
+    color: #777777;
+}
+
+.result-item strong {
+    font-size: 18px;
+    color: #333333;
+}
+
+/* Destaque para o valor Total */
+.total-highlight {
+    background: rgba(68, 199, 243, 0.1);
+    border-color: #4abbe0;
+}
+
+.total-highlight strong {
+    color: #4abbe0;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+/* Ajuste Responsivo */
+@media (max-width: 600px) {
+    .calculator-container {
+        padding: 20px;
+    }
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+}
