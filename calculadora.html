@@ -6,6 +6,8 @@
     <title>Gota - Calculadora</title>
     <link rel="stylesheet" href="assets/css/calculadora.css">
     <link rel="icon" type="image/png" href="assets/imgs/logo_gota.png">
+    <script src="tarifas.js" defer></script>
+    <script src="calculadora.js" defer></script>
 </head>
 <body>
 
@@ -80,6 +82,7 @@
         <div id="resultado-painel" class="results-panel">
             <h3>Resultado do Faturamento</h3>
             <div class="results-grid">
+
                 <div class="result-item">
                     <span>Consumo por Economia:</span>
                     <strong id="res-consumo-economia">0.00 m3</strong>
@@ -98,6 +101,11 @@
                 </div>
             </div>
         </div>
+        <div class="calculator-note">
+        <p>
+            * <strong>Nota:</strong> O valor calculado é uma estimativa do consumo atual baseada nas tarifas vigentes da Sabesp para São Miguel Arcanjo. Eventuais taxas adicionais (como Taxa de Regulação - TRCF), multas por atraso, juros ou atualizações monetárias de contas anteriores não são contabilizados nesta simulação.
+        </p>
+    </div>
     </div>
 </section>
 

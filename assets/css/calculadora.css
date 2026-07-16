@@ -149,11 +149,10 @@ html {
     background-color: #006b75; 
 }
 
-/* --- SEÇÃO DA CALCULADORA --- */
 .calculator-section {
     width: 100%;
     padding: 80px 8%;
-    background-color: #f8fbfd; /* Um fundo levemente azulado para destacar do resto */
+    background-color: #f8fbfd; 
     display: flex;
     justify-content: center;
 }
@@ -185,7 +184,6 @@ html {
     color: #777777;
 }
 
-/* Grid de Formuário: 2 colunas em telas grandes */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -223,7 +221,6 @@ html {
     border-color: #4abbe0;
 }
 
-/* Botão Bonitão */
 .btn-calcular {
     width: 100%;
     padding: 15px;
@@ -283,7 +280,6 @@ html {
     color: #333333;
 }
 
-/* Destaque para o valor Total */
 .total-highlight {
     background: rgba(68, 199, 243, 0.1);
     border-color: #4abbe0;
@@ -295,7 +291,6 @@ html {
     font-weight: 800;
 }
 
-/* Ajuste Responsivo */
 @media (max-width: 600px) {
     .calculator-container {
         padding: 20px;
@@ -303,4 +298,19 @@ html {
     .results-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.calculator-note {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #fbfcfe;
+    border-left: 3px solid #4abbe0;
+    border-radius: 4px;
+}
+
+.calculator-note p {
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.5;
+    margin: 0;
 }
