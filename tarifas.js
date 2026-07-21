@@ -2,7 +2,7 @@ const MAPEAMENTO_CIDADES = [
     {
         tabela: "regiao-alto-paranapanema-baixo-tiete",
         cidades: [
-            "Adolfo", "Aguaí", "Águas da Prata", "Águas de Santa Bárbara", 
+            "Adamantina","Adolfo", "Aguaí", "Águas da Prata", "Águas de Santa Bárbara", 
             "Alambari", "Alfredo Marcondes", "Altair", "Alto Alegre", "Alvinlândia", 
             "Álvares Machado", "Álvaro de Carvalho", "Angatuba", "Anhumas", "Aparecida d’Oeste", 
             "Apiaí", "Arandu", "Arco-Íris", "Assis", "Aspásia", "Auriflama", "Avaí", 

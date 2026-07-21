@@ -52,41 +52,55 @@ function inicializarCalculadora() {
     });
 
     formCalculadora.addEventListener("submit", (event) => {
-        event.preventDefault();
+    event.preventDefault();
 
-        const consumoTotal = parseFloat(document.getElementById('input-consumo').value);
-        const economias = parseInt(document.getElementById('input-economias').value) || 1;
-        const dias = parseInt(document.getElementById('input-periodo').value) || 30;
-        const cidadeSelecionada = selectCidade.value.trim().toLowerCase();
-        const categoria = selectFornecimento.value;
-        const tipoLigacao = document.getElementById('select-ligacao').value;
+    const consumoTotal = parseFloat(document.getElementById('input-consumo').value) || 0;
+    const economias = parseInt(document.getElementById('input-economias').value) || 1;
+    const dias = parseInt(document.getElementById('input-periodo').value) || 30;
+    const cidadeSelecionada = selectCidade.value.trim().toLowerCase();
+    const categoria = selectFornecimento.value;
+    const tipoLigacao = document.getElementById('select-ligacao').value;
 
-        const regiao = MAPEAMENTO_CIDADES.find(r => 
-            r.cidades.some(c => c.trim().toLowerCase() === cidadeSelecionada)
-        );
-        const chaveTabela = regiao ? regiao.tabela : null;
+    const regiao = MAPEAMENTO_CIDADES.find(r => 
+        r.cidades.some(c => c.trim().toLowerCase() === cidadeSelecionada)
+    );
+    const chaveTabela = regiao ? regiao.tabela : null;
 
-        if (!chaveTabela || !TABELAS_TARIFARIAS[chaveTabela]) {
-            alert("Tabela tarifária não encontrada para esta cidade.");
-            return;
-        }
+    if (!chaveTabela || !TABELAS_TARIFARIAS[chaveTabela]) {
+        alert("Tabela tarifária não encontrada para esta cidade.");
+        return;
+    }
 
-        const tarifasDaRegiao = TABELAS_TARIFARIAS[chaveTabela];
-        const configTarifa = tarifasDaRegiao[categoria];
+    const tarifasDaRegiao = TABELAS_TARIFARIAS[chaveTabela];
 
-        if (!configTarifa) {
-            alert("Configuração de tarifa não encontrada para este fornecimento.");
-            return;
-        }
+    const minimo = tarifasDaRegiao.minimos ? tarifasDaRegiao.minimos[categoria] : null;
+    const faixas = tarifasDaRegiao.faixas ? tarifasDaRegiao.faixas[categoria] : null;
 
-        const resultado = processarCalculo(consumoTotal, economias, dias, configTarifa, tipoLigacao);
+    if (!minimo || !faixas) {
+        alert("Configuração de tarifa não encontrada para este fornecimento.");
+        return;
+    }
 
-        document.getElementById('res-consumo-economia').innerText = `${resultado.consumoPorEconomia} m³`;
-        document.getElementById('res-valor-agua').innerText = `R$ ${resultado.valorAgua}`;
-        document.getElementById('res-valor-esgoto').innerText = `R$ ${resultado.valorEsgoto}`;
-        document.getElementById('res-total-geral').innerText = `R$ ${resultado.totalGeral}`;
-    });
-}
+    // 1. Mapeia as chaves para bater com os nomes que a processarCalculo espera
+    const configTarifa = { 
+        minimoAgua: minimo.agua,
+        minimoEsgoto: minimo.esgoto,
+        faixas: faixas 
+    };
+
+    // 2. Garante a verificação do tipo de ligação
+    const tipoLigacaoNormalizado = tipoLigacao.toLowerCase().includes("esgoto") ? "agua-esgoto" : "agua";
+
+    // 3. Executa a função
+    const resultado = processarCalculo(consumoTotal, economias, dias, configTarifa, tipoLigacaoNormalizado);
+
+    // 4. Exibe na tela formatado como moeda (R$)
+    document.getElementById('res-consumo-economia').innerText = `${resultado.consumoPorEconomia.toFixed(2)} m³`;
+    document.getElementById('res-valor-agua').innerText = `R$ ${resultado.valorAgua.toFixed(2).replace('.', ',')}`;
+    document.getElementById('res-valor-esgoto').innerText = `R$ ${resultado.valorEsgoto.toFixed(2).replace('.', ',')}`;
+    document.getElementById('res-total-geral').innerText = `R$ ${resultado.totalGeral.toFixed(2).replace('.', ',')}`;
+});
+
 
 function processarCalculo(consumoTotal, economias, dias, config, tipoLigacao) {
     const consumoPorEconomia = consumoTotal / economias;
@@ -119,6 +133,19 @@ function processarCalculo(consumoTotal, economias, dias, config, tipoLigacao) {
         }
     }
 
+    // Multiplica pela quantidade de economias e calcula o total
+    const valorAguaTotal = aguaPorEconomia * economias;
+    const valorEsgotoTotal = esgotoPorEconomia * economias;
+    const totalGeral = valorAguaTotal + valorEsgotoTotal;
+
+    return {
+        consumoPorEconomia: consumoPorEconomia,
+        valorAgua: valorAguaTotal,
+        valorEsgoto: valorEsgotoTotal,
+        totalGeral: totalGeral
+    };
+}
+
     const fatorTempo = dias / 30;
     
     const totalAgua = aguaPorEconomia * economias * fatorTempo;
@@ -138,7 +165,7 @@ function formatarNomeFornecimento(slug) {
         "residencial-vulneravel": "Residencial Vulnerável",
         "residencial-social": "Residencial Social",
         "residencial-social-ii": "Residencial Social II",
-        "residencial": "Residencial",
+        "residencial-normal": "Residencial Normal",
         "residencial-especial": "Residencial Especial",
         "comercial-industrial-publica-sem-contrato": "Comercial / Industrial / Pública sem Contrato",
         "comercial-entidades-de-assistencia-social": "Comercial: Entidades de Assistência Social",
