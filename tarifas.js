@@ -1,3 +1,131 @@
+const MAPEAMENTO_CIDADES = [
+    {
+        tabela: "regiao-alto-paranapanema-baixo-tiete",
+        cidades: [
+            "Adolfo", "Aguaí", "Águas da Prata", "Águas de Santa Bárbara", 
+            "Alambari", "Alfredo Marcondes", "Altair", "Alto Alegre", "Alvinlândia", 
+            "Álvares Machado", "Álvaro de Carvalho", "Angatuba", "Anhumas", "Aparecida d’Oeste", 
+            "Apiaí", "Arandu", "Arco-Íris", "Assis", "Aspásia", "Auriflama", "Avaí", 
+            "Avaré", "Balbinos", "Barão de Antonina", "Barra do Chapéu", "Bastos", 
+            "Bento de Abreu", "Bernardino de Campos", "Bom Sucesso de Itararé", "Borá", 
+            "Brejo Alegre", "Buri", "Buritizal", "Cabreúva", "Caiabu", "Cajuru", 
+            "Campina do Monte Alegre", "Campo Limpo Paulista", "Cândido Rodrigues", 
+            "Capão Bonito", "Cardoso", "Cássia dos Coqueiros", "Catiguá", "Colômbia", 
+            "Coronel Macedo", "Coroados", "Cruzália", "Dirce Reis", "Divinolândia", 
+            "Dolcinópolis", "Duartina", "Echaporã", "Elias Fausto", "Emilianópolis", 
+            "Espírito Santo do Pinhal", "Espírito Santo do Turvo", "Estrela d’Oeste", 
+            "Estrela do Norte", "Euclides da Cunha Paulista", "Fartura", "Fernandópolis", 
+            "Fernão", "Fernando Prestes", "Flora Rica", "Floreal", "Flórida Paulista", 
+            "Florínea", "Franca", "Gália", "Gabriel Monteiro", "Gastão Vidigal", 
+            "General Salgado", "Glicério", "Guapiara", "Guarani d’Oeste", "Guareí", 
+            "Guariba", "Guzolândia", "Hortolândia", "Iacri", "Iaras", "Ibirá", 
+            "Icém", "Igarapava", "Indiaporã", "Inúbia Paulista", "Irapuã", "Itaí", 
+            "Itaberá", "Itapetininga", "Itapeva", "Itapirapuã Paulista", "Itaporanga", 
+            "Itararé", "Itatiba", "Itaoca", "Itirapuã", "Itobi", "Itupeva", "Jaborandi", 
+            "Jales", "Jarinu", "Jeriquara", "Joanópolis", "Lucélia", "Lucianópolis", 
+            "Lourdes", "Luiziânia", "Lupércio", "Lutécia", "Macedônia", "Magda", 
+            "Marabá Paulista", "Maracaí", "Mariápolis", "Marinópolis", "Meridiano", 
+            "Mesópolis", "Miguelópolis", "Mira Estrela", "Mirante do Paranapanema", 
+            "Mococa", "Mombuca", "Monções", "Monte Alto", "Monte Aprazível", "Monte Mor", 
+            "Morungaba", "Narandiba", "Nazaré Paulista", "Nhandeara", "Nipoã", 
+            "Nova Campina", "Nova Canaã Paulista", "Nova Granada", "Nova Guataporanga", 
+            "Nova Luzitânia", "Novo Horizonte", "Óleo", "Onda Verde", "Oriente", 
+            "Orindiúva", "Oscar Bressane", "Osvaldo Cruz", "Ouroeste", "Palmares Paulista", 
+            "Palmeira d’Oeste", "Paranapanema", "Paranapuã", "Paraguaçu Paulista", 
+            "Parapuã", "Paulínia", "Paulistânia", "Paulo de Faria", "Pedra Bela", 
+            "Pedranópolis", "Pedregulho", "Pedrinhas Paulista", "Piacatu", "Pilar do Sul", 
+            "Pinhalzinho", "Piracaia", "Piraju", "Piratininga", 
+            "Piquerobi", "Planalto", "Platina", "Poloni", "Pongaí", "Pontalinda", 
+            "Pontes Gestal", "Populina", "Pracinha", "Presidente Alves", "Presidente Bernardes", 
+            "Presidente Epitácio", "Quatá", "Queiróz", "Regente Feijó", 
+            "Restinga", "Ribeira", "Ribeirão Branco", "Ribeirão Corrente", "Ribeirão do Sul", 
+            "Ribeirão dos Índios", "Ribeirão Grande", "Rifaina", "Riolândia", "Riversul", 
+            "Rosana", "Rubiácea", "Rubineia", "Sagres", "Saltinho", "Salmourão", 
+            "Sandovalina", "Santa Albertina", "Santa Clara d’Oeste", "Santa Cruz da Esperança", 
+            "Santa Cruz do Rio Pardo", "Santa Ernestina", "Santa Mercedes", "Santa Rosa de Viterbo", 
+            "Santa Salete", "Santana da Ponte Pensa", "Santo Anastácio", "Santo Antonio do Jardim", 
+            "Santo Expedito", "São Francisco", "São João da Boa Vista", "São João das Duas Pontes", 
+            "São Miguel Arcanjo", "Sarapuí", "Sarutaiá", "Sebastianópolis do Sul", "Serra Azul", 
+            "Serra Negra", "Socorro", "Sud Mennucci", "Taciba", "Taguaí", "Tapiratiba", 
+            "Tarabaí", "Tarumã", "Taquarituba", "Taquarivaí", "Tejupá", "Teodoro Sampaio", 
+            "Terra Roxa", "Timburi", "Três Fronteiras", "Tupã", "Turiúba", "Turmalina", 
+            "Ubirajara", "União Paulista", "Urânia", "Uru", "Valentim Gentil", 
+            "Vargem", "Várzea Paulista", "Vitória Brasil", "Zacarias"
+        ]
+    },
+    {
+        tabela: "regiao-metropolitana-guararema-st-isabel",
+        cidades: [
+            "Arujá", "Barueri", "Biritiba Mirim", "Caieiras", "Cajamar", 
+            "Carapicuíba", "Cotia", "Diadema", "Embu das Artes", "Embu-Guaçu", 
+            "Ferraz de Vasconcelos", "Francisco Morato", "Franco da Rocha", "Guararema", 
+            "Guarulhos", "Itapecerica da Serra", "Itapevi", "Itaquaquecetuba", "Jandira", 
+            "Mairiporã", "Mauá", "Mogi das Cruzes", "Osasco", "Pirapora do Bom Jesus", 
+            "Póa", "Ribeirão Pires", "Rio Grande da Serra", "Salesópolis", "Santa Isabel", 
+            "Santana de Parnaíba", "Santo André", "São Bernardo do Campo", "São Paulo", 
+            "Suzano", "Taboão da Serra", "Vargem Grande Paulista"
+        ]
+    },
+    {
+        tabela: "regiao-bragantina",
+        cidades: [
+            "Bragança Paulista", "Joanópolis", "Nazaré Paulista", "Pedra Bela", 
+            "Pinhalzinho", "Piracaia", "Socorro", "Vargem"
+        ]
+    },
+    {
+        tabela: "juquitiba-sao-lourenco-da-serra-e-regiao-do-vale-do-ribeira",
+        cidades: [
+            "Barra do Turvo", "Cajati", "Cananéia", "Eldorado", "Iguape", 
+            "Ilha Comprida", "Iporanga", "Itariri", "Jacupiranga", "Juquiá", 
+            "Juquitiba", "Miracatu", "Pariquera-Açu", "Pedro de Toledo", "Registro", 
+            "São Lourenço da Serra", "Sete Barras", "Tapiraí"
+        ]
+    },
+    {
+        tabela: "lins",
+        cidades: [
+            "Lins"
+        ]
+    },
+    {
+        tabela: "adamantina-e-pirapozinho",
+        cidades: [
+            "Adamantina", "Pirapozinho"
+        ]
+    },
+    {
+        tabela: "presidente-prudente",
+        cidades: [
+            "Presidente Prudente"
+        ]
+    },
+    {
+        tabela: "regiao-vale-do-paraiba",
+        cidades: [
+            "Arapeí", "Bananal", "Caçapava", "Cachoeira Paulista", "Campos do Jordão", 
+            "Canas", "Igaratá", "Jambeiro", "Lagoinha", "Lavrinhas", 
+            "Lorena", "Monteiro Lobato", "Pindamonhangaba", "Queluz", "Redenção da Serra", 
+            "Roseira", "Santa Branca", "Santo Antonio do Pinhal", "São Bento do Sapucaí", "São José dos Campos", 
+            "São Luiz do Paraitinga", "Silveiras", "Taubaté", "Tremembé" 
+            ]
+    },
+    {
+        tabela: "regiao-baixada-santista",
+        cidades: [
+            "Bertioga", "Caraguatatuba", "Cubatão", "Guarujá", "Ilhabela", 
+            "Itanhaém", "Mongaguá", "Peruíbe", "Praia Grande", "Santos", 
+            "São Sebastião", "São Vicente", "Ubatuba"
+        ]
+    },
+    {
+        tabela: "olimpia",
+        cidades: [
+            "Olimpia"
+        ]
+    }
+];
+
 const TABELAS_TARIFARIAS = {
     "regiao-alto-paranapanema-baixo-tiete": {
         minimos: {
@@ -625,130 +753,28 @@ const TABELAS_TARIFARIAS = {
     }
 };
 
-const MAPEAMENTO_CIDADES = [
-    {
-        tabela: "regiao-alto-paranapanema-baixo-tiete",
-        cidades: [
-            "Adolfo", "Aguaí", "Águas da Prata", "Águas de Santa Bárbara", 
-            "Alambari", "Alfredo Marcondes", "Altair", "Alto Alegre", "Alvinlândia", 
-            "Álvares Machado", "Álvaro de Carvalho", "Angatuba", "Anhumas", "Aparecida d’Oeste", 
-            "Apiaí", "Arandu", "Arco-Íris", "Assis", "Aspásia", "Auriflama", "Avaí", 
-            "Avaré", "Balbinos", "Barão de Antonina", "Barra do Chapéu", "Bastos", 
-            "Bento de Abreu", "Bernardino de Campos", "Bom Sucesso de Itararé", "Borá", 
-            "Brejo Alegre", "Buri", "Buritizal", "Cabreúva", "Caiabu", "Cajuru", 
-            "Campina do Monte Alegre", "Campo Limpo Paulista", "Cândido Rodrigues", 
-            "Capão Bonito", "Cardoso", "Cássia dos Coqueiros", "Catiguá", "Colômbia", 
-            "Coronel Macedo", "Coroados", "Cruzália", "Dirce Reis", "Divinolândia", 
-            "Dolcinópolis", "Duartina", "Echaporã", "Elias Fausto", "Emilianópolis", 
-            "Espírito Santo do Pinhal", "Espírito Santo do Turvo", "Estrela d’Oeste", 
-            "Estrela do Norte", "Euclides da Cunha Paulista", "Fartura", "Fernandópolis", 
-            "Fernão", "Fernando Prestes", "Flora Rica", "Floreal", "Flórida Paulista", 
-            "Florínea", "Franca", "Gália", "Gabriel Monteiro", "Gastão Vidigal", 
-            "General Salgado", "Glicério", "Guapiara", "Guarani d’Oeste", "Guareí", 
-            "Guariba", "Guzolândia", "Hortolândia", "Iacri", "Iaras", "Ibirá", 
-            "Icém", "Igarapava", "Indiaporã", "Inúbia Paulista", "Irapuã", "Itaí", 
-            "Itaberá", "Itapetininga", "Itapeva", "Itapirapuã Paulista", "Itaporanga", 
-            "Itararé", "Itatiba", "Itaoca", "Itirapuã", "Itobi", "Itupeva", "Jaborandi", 
-            "Jales", "Jarinu", "Jeriquara", "Joanópolis", "Lucélia", "Lucianópolis", 
-            "Lourdes", "Luiziânia", "Lupércio", "Lutécia", "Macedônia", "Magda", 
-            "Marabá Paulista", "Maracaí", "Mariápolis", "Marinópolis", "Meridiano", 
-            "Mesópolis", "Miguelópolis", "Mira Estrela", "Mirante do Paranapanema", 
-            "Mococa", "Mombuca", "Monções", "Monte Alto", "Monte Aprazível", "Monte Mor", 
-            "Morungaba", "Narandiba", "Nazaré Paulista", "Nhandeara", "Nipoã", 
-            "Nova Campina", "Nova Canaã Paulista", "Nova Granada", "Nova Guataporanga", 
-            "Nova Luzitânia", "Novo Horizonte", "Óleo", "Onda Verde", "Oriente", 
-            "Orindiúva", "Oscar Bressane", "Osvaldo Cruz", "Ouroeste", "Palmares Paulista", 
-            "Palmeira d’Oeste", "Paranapanema", "Paranapuã", "Paraguaçu Paulista", 
-            "Parapuã", "Paulínia", "Paulistânia", "Paulo de Faria", "Pedra Bela", 
-            "Pedranópolis", "Pedregulho", "Pedrinhas Paulista", "Piacatu", "Pilar do Sul", 
-            "Pinhalzinho", "Piracaia", "Piraju", "Piratininga", 
-            "Piquerobi", "Planalto", "Platina", "Poloni", "Pongaí", "Pontalinda", 
-            "Pontes Gestal", "Populina", "Pracinha", "Presidente Alves", "Presidente Bernardes", 
-            "Presidente Epitácio", "Quatá", "Queiróz", "Regente Feijó", 
-            "Restinga", "Ribeira", "Ribeirão Branco", "Ribeirão Corrente", "Ribeirão do Sul", 
-            "Ribeirão dos Índios", "Ribeirão Grande", "Rifaina", "Riolândia", "Riversul", 
-            "Rosana", "Rubiácea", "Rubineia", "Sagres", "Saltinho", "Salmourão", 
-            "Sandovalina", "Santa Albertina", "Santa Clara d’Oeste", "Santa Cruz da Esperança", 
-            "Santa Cruz do Rio Pardo", "Santa Ernestina", "Santa Mercedes", "Santa Rosa de Viterbo", 
-            "Santa Salete", "Santana da Ponte Pensa", "Santo Anastácio", "Santo Antonio do Jardim", 
-            "Santo Expedito", "São Francisco", "São João da Boa Vista", "São João das Duas Pontes", 
-            "São Miguel Arcanjo", "Sarapuí", "Sarutaiá", "Sebastianópolis do Sul", "Serra Azul", 
-            "Serra Negra", "Socorro", "Sud Mennucci", "Taciba", "Taguaí", "Tapiratiba", 
-            "Tarabaí", "Tarumã", "Taquarituba", "Taquarivaí", "Tejupá", "Teodoro Sampaio", 
-            "Terra Roxa", "Timburi", "Três Fronteiras", "Tupã", "Turiúba", "Turmalina", 
-            "Ubirajara", "União Paulista", "Urânia", "Uru", "Valentim Gentil", 
-            "Vargem", "Várzea Paulista", "Vitória Brasil", "Zacarias"
-        ]
-    },
-    {
-        tabela: "regiao-metropolitana-guararema-st-isabel",
-        cidades: [
-            "Arujá", "Barueri", "Biritiba Mirim", "Caieiras", "Cajamar", 
-            "Carapicuíba", "Cotia", "Diadema", "Embu das Artes", "Embu-Guaçu", 
-            "Ferraz de Vasconcelos", "Francisco Morato", "Franco da Rocha", "Guararema", 
-            "Guarulhos", "Itapecerica da Serra", "Itapevi", "Itaquaquecetuba", "Jandira", 
-            "Mairiporã", "Mauá", "Mogi das Cruzes", "Osasco", "Pirapora do Bom Jesus", 
-            "Póa", "Ribeirão Pires", "Rio Grande da Serra", "Salesópolis", "Santa Isabel", 
-            "Santana de Parnaíba", "Santo André", "São Bernardo do Campo", "São Paulo", 
-            "Suzano", "Taboão da Serra", "Vargem Grande Paulista"
-        ]
-    },
-    {
-        tabela: "regiao-bragantina",
-        cidades: [
-            "Bragança Paulista", "Joanópolis", "Nazaré Paulista", "Pedra Bela", 
-            "Pinhalzinho", "Piracaia", "Socorro", "Vargem"
-        ]
-    },
-    {
-        tabela: "juquitiba-sao-lourenco-da-serra-e-regiao-do-vale-do-ribeira",
-        cidades: [
-            "Barra do Turvo", "Cajati", "Cananéia", "Eldorado", "Iguape", 
-            "Ilha Comprida", "Iporanga", "Itariri", "Jacupiranga", "Juquiá", 
-            "Juquitiba", "Miracatu", "Pariquera-Açu", "Pedro de Toledo", "Registro", 
-            "São Lourenço da Serra", "Sete Barras", "Tapiraí"
-        ]
-    },
-    {
-        tabela: "lins",
-        cidades: [
-            "Lins"
-        ]
-    },
-    {
-        tabela: "adamantina-e-pirapozinho",
-        cidades: [
-            "Adamantina", "Pirapozinho"
-        ]
-    },
-    {
-        tabela: "presidente-prudente",
-        cidades: [
-            "Presidente Prudente"
-        ]
-    },
-    {
-        tabela: "regiao-vale-do-paraiba",
-        cidades: [
-            "Arapeí", "Bananal", "Caçapava", "Cachoeira Paulista", "Campos do Jordão", 
-            "Canas", "Igaratá", "Jambeiro", "Lagoinha", "Lavrinhas", 
-            "Lorena", "Monteiro Lobato", "Pindamonhangaba", "Queluz", "Redenção da Serra", 
-            "Roseira", "Santa Branca", "Santo Antonio do Pinhal", "São Bento do Sapucaí", "São José dos Campos", 
-            "São Luiz do Paraitinga", "Silveiras", "Taubaté", "Tremembé" 
-            ]
-    },
-    {
-        tabela: "regiao-baixada-santista",
-        cidades: [
-            "Bertioga", "Caraguatatuba", "Cubatão", "Guarujá", "Ilhabela", 
-            "Itanhaém", "Mongaguá", "Peruíbe", "Praia Grande", "Santos", 
-            "São Sebastião", "São Vicente", "Ubatuba"
-        ]
-    },
-    {
-        tabela: "olimpia",
-        cidades: [
-            "Olimpia"
-        ]
+class GerenciadorTarifas {
+    constructor(mapeamentoCidades, tabelasTarifarias) {
+        this.mapeamentoCidades = mapeamentoCidades;
+        this.tabelasTarifarias = tabelasTarifarias;
     }
-];
+
+    obterChaveTabelaPorCidade(nomeCidade) {
+        if (!nomeCidade) return null;
+        const cidadeFormatada = nomeCidade.trim().toLowerCase();
+        const regiao = this.mapeamentoCidades.find(r => 
+            r.cidades.some(c => c.trim().toLowerCase() === cidadeFormatada)
+        );
+        return regiao ? regiao.tabela : null;
+    }
+
+    obterCategoriasDisponiveis(nomeCidade) {
+        const chaveTabela = this.obterChaveTabelaPorCidade(nomeCidade);
+        if (!chaveTabela || !this.tabelasTarifarias[chaveTabela]) return [];
+
+        const minimos = this.tabelasTarifarias[chaveTabela].minimos || {};
+        return Object.keys(minimos);
+    }
+}
+
+const gerenciadorTarifas = new GerenciadorTarifas(MAPEAMENTO_CIDADES, TABELAS_TARIFARIAS);

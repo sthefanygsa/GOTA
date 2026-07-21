@@ -1,58 +1,94 @@
-const TARIFAS_REGIAO = {
-    "residencial-normal": {
-        minimoAgua: 40.42,
-        minimoEsgoto: 32.42,
-        faixas: [
-            { limite: 10, agua: 0.00, esgoto: 0.00 }, 
-            { limite: 20, agua: 5.69, esgoto: 4.49 },
-            { limite: 50, agua: 8.74, esgoto: 6.99 },
-            { limite: Infinity, agua: 10.46, esgoto: 8.33 }
-        ]
-    },
-    "residencial-social": {
-        minimoAgua: 20.21,
-        minimoEsgoto: 16.21,
-        faixas: [
-            { limite: 10, agua: 0.00, esgoto: 0.00 },
-            { limite: 15, agua: 2.85, esgoto: 2.25 },
-            { limite: 20, agua: 5.69, esgoto: 4.49 },
-            { limite: 50, agua: 8.74, esgoto: 6.99 },
-            { limite: Infinity, agua: 10.46, esgoto: 8.33 }
-        ]
-    },
-    "comercial": {
-        minimoAgua: 81.57,
-        minimoEsgoto: 65.25,
-        faixas: [
-            { limite: 10, agua: 0.00, esgoto: 0.00 },
-            { limite: 20, agua: 9.70, esgoto: 7.70 },
-            { limite: 50, agua: 15.68, esgoto: 12.53 },
-            { limite: Infinity, agua: 18.41, esgoto: 14.68 }
-        ]
-    }
-};
+function inicializarCalculadora() {
+    const selectCidade = document.getElementById("select-cidade");
+    const selectFornecimento = document.getElementById("select-fornecimento");
+    const formCalculadora = document.getElementById("form-calculadora");
 
-document.getElementById('form-calculadora').addEventListener('submit', function(e) {
-    e.preventDefault();
+    if (!selectCidade || !selectFornecimento || !formCalculadora) return;
 
-    const consumoTotal = parseFloat(document.getElementById('input-consumo').value);
-    const economias = parseInt(document.getElementById('input-economias').value) || 1;
-    const dias = parseInt(document.getElementById('input-periodo').value) || 30;
-    const categoria = document.getElementById('select-fornecimento').value;
-    const tipoLigacao = document.getElementById('select-ligacao').value;
+    selectCidade.innerHTML = "";
+    
+    const optionPadrao = document.createElement("option");
+    optionPadrao.value = "";
+    optionPadrao.disabled = true;
+    optionPadrao.selected = true;
+    optionPadrao.textContent = "Selecione sua cidade";
+    selectCidade.appendChild(optionPadrao);
 
-    const resultado = processarCalculo(consumoTotal, economias, dias, categoria, tipoLigacao);
+    const todasAsCidades = MAPEAMENTO_CIDADES
+        .flatMap(regiao => regiao.cidades)
+        .sort((a, b) => a.localeCompare(b, "pt-BR"));
 
-    document.getElementById('res-consumo-economia').innerText = `${resultado.consumoPorEconomia} m³`;
-    document.getElementById('res-valor-agua').innerText = `R$ ${resultado.valorAgua}`;
-    document.getElementById('res-valor-esgoto').innerText = `R$ ${resultado.valorEsgoto}`;
-    document.getElementById('res-total-geral').innerText = `R$ ${resultado.totalGeral}`;
-});
+    todasAsCidades.forEach(cidade => {
+        const option = document.createElement("option");
+        option.value = cidade.trim();
+        option.textContent = cidade.trim();
+        selectCidade.appendChild(option);
+    });
 
-function processarCalculo(consumoTotal, economias, dias, categoria, tipoLigacao) {
-    const config = TARIFAS_REGIAO[categoria];
-    if (!config) return;
+    selectCidade.value = "";
 
+    selectFornecimento.innerHTML = '<option value="" disabled selected>Selecione a cidade primeiro</option>';
+    selectFornecimento.disabled = true;
+
+    selectCidade.addEventListener("change", () => {
+        const cidadeSelecionada = selectCidade.value;
+        
+        const fornecimentosDaRegiao = gerenciadorTarifas.obterCategoriasDisponiveis(cidadeSelecionada);
+
+        if (fornecimentosDaRegiao.length > 0) {
+            selectFornecimento.innerHTML = '<option value="" disabled selected>Selecione o tipo de fornecimento</option>';
+            selectFornecimento.disabled = false;
+
+            fornecimentosDaRegiao.forEach(chaveFornecimento => {
+                const option = document.createElement("option");
+                option.value = chaveFornecimento;
+                option.textContent = formatarNomeFornecimento(chaveFornecimento);
+                selectFornecimento.appendChild(option);
+            });
+        } else {
+            selectFornecimento.innerHTML = '<option value="" disabled selected>Selecione a cidade primeiro</option>';
+            selectFornecimento.disabled = true;
+        }
+    });
+
+    formCalculadora.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const consumoTotal = parseFloat(document.getElementById('input-consumo').value);
+        const economias = parseInt(document.getElementById('input-economias').value) || 1;
+        const dias = parseInt(document.getElementById('input-periodo').value) || 30;
+        const cidadeSelecionada = selectCidade.value.trim().toLowerCase();
+        const categoria = selectFornecimento.value;
+        const tipoLigacao = document.getElementById('select-ligacao').value;
+
+        const regiao = MAPEAMENTO_CIDADES.find(r => 
+            r.cidades.some(c => c.trim().toLowerCase() === cidadeSelecionada)
+        );
+        const chaveTabela = regiao ? regiao.tabela : null;
+
+        if (!chaveTabela || !TABELAS_TARIFARIAS[chaveTabela]) {
+            alert("Tabela tarifária não encontrada para esta cidade.");
+            return;
+        }
+
+        const tarifasDaRegiao = TABELAS_TARIFARIAS[chaveTabela];
+        const configTarifa = tarifasDaRegiao[categoria];
+
+        if (!configTarifa) {
+            alert("Configuração de tarifa não encontrada para este fornecimento.");
+            return;
+        }
+
+        const resultado = processarCalculo(consumoTotal, economias, dias, configTarifa, tipoLigacao);
+
+        document.getElementById('res-consumo-economia').innerText = `${resultado.consumoPorEconomia} m³`;
+        document.getElementById('res-valor-agua').innerText = `R$ ${resultado.valorAgua}`;
+        document.getElementById('res-valor-esgoto').innerText = `R$ ${resultado.valorEsgoto}`;
+        document.getElementById('res-total-geral').innerText = `R$ ${resultado.totalGeral}`;
+    });
+}
+
+function processarCalculo(consumoTotal, economias, dias, config, tipoLigacao) {
     const consumoPorEconomia = consumoTotal / economias;
     
     let aguaPorEconomia = config.minimoAgua;
@@ -96,3 +132,31 @@ function processarCalculo(consumoTotal, economias, dias, categoria, tipoLigacao)
         totalGeral: totalGeral.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
     };
 }
+
+function formatarNomeFornecimento(slug) {
+    const traducoes = {
+        "residencial-vulneravel": "Residencial Vulnerável",
+        "residencial-social": "Residencial Social",
+        "residencial-social-ii": "Residencial Social II",
+        "residencial": "Residencial",
+        "residencial-especial": "Residencial Especial",
+        "comercial-industrial-publica-sem-contrato": "Comercial / Industrial / Pública sem Contrato",
+        "comercial-entidades-de-assistencia-social": "Comercial: Entidades de Assistência Social",
+        "comercial-especial": "Comercial Especial",
+        "comercial": "Comercial",
+        "publica-com-contrato": "Pública com Contrato",
+        "publica-municipal": "Pública Municipal",
+        "publico": "Público",
+        "industrial": "Industrial",
+        "mista": "Mista",
+        "residencial-rural-sem-medidor": "Residencial Rural (sem medidor)",
+        "residencial-rural": "Residencial Rural"
+    };
+
+    return traducoes[slug] || slug
+        .split('-')
+        .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1))
+        .join(' ');
+}
+
+document.addEventListener("DOMContentLoaded", inicializarCalculadora);

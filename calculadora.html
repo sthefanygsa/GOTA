@@ -59,19 +59,18 @@
                 </div>
 
                 <div class="input-group">
-                    <label for="select-fornecimento">05. Tipo de Fornecimento</label>
-                    <select id="select-fornecimento" required>
-                        <option value="residencial-normal">Residencial Normal</option>
-                        <option value="residencial-social">Residencial Social</option>
-                        <option value="comercial">Comercial</option>
-                    </select>
-                </div>
+    <label for="select-fornecimento">05. Tipo de Fornecimento</label>
+    <select id="select-fornecimento" required disabled>
+        <option value="" disabled selected>Selecione a cidade primeiro</option>
+    </select>
+</div>
 
                 <div class="input-group">
                     <label for="select-ligacao">06. Tipo de Ligação</label>
                     <select id="select-ligacao" required>
                         <option value="agua-esgoto">Água e Esgoto</option>
                         <option value="apenas-agua">Apenas Água</option>
+                        <option value="apenas-esgoto">Apenas Esgoto</option>
                     </select>
                 </div>
             </div>
@@ -108,6 +107,7 @@
     </div>
     </div>
 </section>
-
+    <script src="tarifas.js"></script>
+    <script src="calculadora.js"></script>
 </body>
 </html>
