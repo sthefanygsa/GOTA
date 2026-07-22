@@ -81,20 +81,16 @@ function inicializarCalculadora() {
         return;
     }
 
-    // 1. Mapeia as chaves para bater com os nomes que a processarCalculo espera
     const configTarifa = { 
         minimoAgua: minimo.agua,
         minimoEsgoto: minimo.esgoto,
         faixas: faixas 
     };
 
-    // 2. Garante a verificação do tipo de ligação
     const tipoLigacaoNormalizado = tipoLigacao.toLowerCase().includes("esgoto") ? "agua-esgoto" : "agua";
 
-    // 3. Executa a função
     const resultado = processarCalculo(consumoTotal, economias, dias, configTarifa, tipoLigacaoNormalizado);
 
-    // 4. Exibe na tela formatado como moeda (R$)
     document.getElementById('res-consumo-economia').innerText = `${resultado.consumoPorEconomia.toFixed(2)} m³`;
     document.getElementById('res-valor-agua').innerText = `R$ ${resultado.valorAgua.toFixed(2).replace('.', ',')}`;
     document.getElementById('res-valor-esgoto').innerText = `R$ ${resultado.valorEsgoto.toFixed(2).replace('.', ',')}`;
@@ -133,7 +129,6 @@ function processarCalculo(consumoTotal, economias, dias, config, tipoLigacao) {
         }
     }
 
-    // Multiplica pela quantidade de economias e calcula o total
     const valorAguaTotal = aguaPorEconomia * economias;
     const valorEsgotoTotal = esgotoPorEconomia * economias;
     const totalGeral = valorAguaTotal + valorEsgotoTotal;
@@ -187,3 +182,30 @@ function formatarNomeFornecimento(slug) {
 }
 
 document.addEventListener("DOMContentLoaded", inicializarCalculadora);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('form-calculadora');
+    const btnLimpar = document.getElementById('btn-limpar');
+    const selectFornecimento = document.getElementById('select-fornecimento');
+
+    const resConsumoEconomia = document.getElementById('res-consumo-economia');
+    const resValorAgua = document.getElementById('res-valor-agua');
+    const resValorEsgoto = document.getElementById('res-valor-esgoto');
+    const resTotalGeral = document.getElementById('res-total-geral');
+
+    if (btnLimpar) {
+        btnLimpar.addEventListener('click', () => {
+            form.reset();
+
+            if (selectFornecimento) {
+                selectFornecimento.innerHTML = '<option value="" disabled selected>Selecione a cidade primeiro</option>';
+                selectFornecimento.disabled = true;
+            }
+
+            if (resConsumoEconomia) resConsumoEconomia.textContent = '0.00 m³';
+            if (resValorAgua) resValorAgua.textContent = 'R$ 0,00';
+            if (resValorEsgoto) resValorEsgoto.textContent = 'R$ 0,00';
+            if (resTotalGeral) resTotalGeral.textContent = 'R$ 0,00';
+        });
+    }
+});

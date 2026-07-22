@@ -26,88 +26,100 @@
         <a href="contato.html" class="btn-contact">Contato</a>
     </header>
 
-    <section id="calculadora" class="calculator-section">
-    <div class="calculator-container">
-        <div class="calculator-header">
-            <h2>Simulador de Tarifa</h2>
-            <p>Preencha os campos abaixo com os dados da sua fatura para calcular.</p>
-        </div>
+        <main class="main-wrapper">
 
-        <form id="form-calculadora" class="calculator-form" onsubmit="event.preventDefault();">
-            <div class="form-grid">
-                <div class="input-group">
-                    <label for="input-consumo">01. Consumo Mensal (m3)</label>
-                    <input type="number" id="input-consumo" min="0" placeholder="Ex: 15" required>
+        <div class="shape shape-top-left"></div>
+        <div class="shape shape-top-right"></div>
+        <div class="shape shape-bottom-left"></div>
+        <div class="shape shape-bottom-right"></div>
+
+        <section id="calculadora" class="calculator-section calc-card">
+            <div class="calculator-container">
+                <div class="calculator-header">
+                    <h2>Simulador de Tarifa</h2>
+                    <p>Preencha os campos abaixo com os dados da sua fatura para calcular.</p>
                 </div>
 
-                <div class="input-group">
-                    <label for="input-economias">02. Quantidade de Economias</label>
-                    <input type="number" id="input-economias" min="1" value="1" required>
-                </div>
+                <form id="form-calculadora" class="calculator-form" onsubmit="event.preventDefault();">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="input-consumo">01. Consumo Mensal (m3)</label>
+                            <input type="number" id="input-consumo" min="0" placeholder="Ex: 15" required>
+                        </div>
 
-                <div class="input-group">
-                    <label for="input-periodo">03. Período de Consumo (Dias)</label>
-                    <input type="number" id="input-periodo" min="1" value="30" required>
-                </div>
+                        <div class="input-group">
+                            <label for="input-economias">02. Quantidade de Economias</label>
+                            <input type="number" id="input-economias" min="1" value="1" required>
+                        </div>
 
-                <div class="input-group">
-                    <label for="select-cidade">04. Cidade</label>
-                    <select id="select-cidade" required>
-                        <option value="" disabled selected>Selecione sua cidade</option>
-                        <option value="sao-miguel">São Miguel Arcanjo</option>
-                    </select>
-                </div>
+                        <div class="input-group">
+                            <label for="input-periodo">03. Período de Consumo (Dias)</label>
+                            <input type="number" id="input-periodo" min="1" value="30" required>
+                        </div>
 
-                <div class="input-group">
-    <label for="select-fornecimento">05. Tipo de Fornecimento</label>
-    <select id="select-fornecimento" required disabled>
-        <option value="" disabled selected>Selecione a cidade primeiro</option>
-    </select>
+                        <div class="input-group">
+                            <label for="select-cidade">04. Cidade</label>
+                            <select id="select-cidade" required>
+                                <option value="" disabled selected>Selecione sua cidade</option>
+                                <option value="sao-miguel">São Miguel Arcanjo</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="select-fornecimento">05. Tipo de Fornecimento</label>
+                            <select id="select-fornecimento" required disabled>
+                                <option value="" disabled selected>Selecione a cidade primeiro</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="select-ligacao">06. Tipo de Ligação</label>
+                            <select id="select-ligacao" required>
+                                <option value="agua-esgoto">Água e Esgoto</option>
+                                <option value="apenas-agua">Apenas Água</option>
+                                <option value="apenas-esgoto">Apenas Esgoto</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+    <button type="submit" class="btn-calcular btn-calc">Calcular Tarifa</button>
+    <button type="button" id="btn-limpar" class="btn-limpar">Limpar Dados</button>
 </div>
+                </form>
 
-                <div class="input-group">
-                    <label for="select-ligacao">06. Tipo de Ligação</label>
-                    <select id="select-ligacao" required>
-                        <option value="agua-esgoto">Água e Esgoto</option>
-                        <option value="apenas-agua">Apenas Água</option>
-                        <option value="apenas-esgoto">Apenas Esgoto</option>
-                    </select>
+                <div id="resultado-painel" class="results-panel">
+                    <h3>Resultado do Faturamento</h3>
+                    <div class="results-grid">
+
+                        <div class="result-item">
+                            <span>Consumo por Economia:</span>
+                            <strong id="res-consumo-economia">0.00 m3</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Tarifa de Água:</span>
+                            <strong id="res-valor-agua">R$ 0,00</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Tarifa de Esgoto:</span>
+                            <strong id="res-valor-esgoto">R$ 0,00</strong>
+                        </div>
+                        <div class="result-item total-highlight">
+                            <span>Valor Total Estimado:</span>
+                            <strong id="res-total-geral">R$ 0,00</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calculator-note">
+                    <p>
+                        * <strong>Nota:</strong> O valor calculado é uma estimativa do consumo atual baseada nas tarifas vigentes da empresa de saneamento para o município selecionado. Eventuais taxas adicionais (como Taxa de Regulação - TRCF), multas por atraso, juros ou atualizações monetárias de contas anteriores não são contabilizados nesta simulação.
+                    </p>
                 </div>
             </div>
+        </section>
 
-            <button type="submit" class="btn-calcular">Calcular Tarifa</button>
-        </form>
+    </main>
 
-        <div id="resultado-painel" class="results-panel">
-            <h3>Resultado do Faturamento</h3>
-            <div class="results-grid">
-
-                <div class="result-item">
-                    <span>Consumo por Economia:</span>
-                    <strong id="res-consumo-economia">0.00 m3</strong>
-                </div>
-                <div class="result-item">
-                    <span>Tarifa de Água:</span>
-                    <strong id="res-valor-agua">R$ 0,00</strong>
-                </div>
-                <div class="result-item">
-                    <span>Tarifa de Esgoto:</span>
-                    <strong id="res-valor-esgoto">R$ 0,00</strong>
-                </div>
-                <div class="result-item total-highlight">
-                    <span>Valor Total Estimado:</span>
-                    <strong id="res-total-geral">R$ 0,00</strong>
-                </div>
-            </div>
-        </div>
-        <div class="calculator-note">
-        <p>
-            * <strong>Nota:</strong> O valor calculado é uma estimativa do consumo atual baseada nas tarifas vigentes da empresa de saneamento para o município selecionado. Eventuais taxas adicionais (como Taxa de Regulação - TRCF), multas por atraso, juros ou atualizações monetárias de contas anteriores não são contabilizados nesta simulação.
-        </p>
-    </div>
-    </div>
-</section>
-    <script src="tarifas.js"></script>
-    <script src="calculadora.js"></script>
 </body>
 </html>
