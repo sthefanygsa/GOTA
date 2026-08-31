@@ -1,32 +1,31 @@
 <div align="center">
-<img src="assets/imgs/logo_gota.png" alt="logo_gota" width="100">
+<img src="assets/imgs/gota.png" alt="logo_gota" width="100">
 </div>
 
-> Plataforma web para conscientização, monitoramento e gestão do consumo consciente de água.
+<div align="center">
+Simulador de Faturamento de Água e Esgoto da Sabesp.
+</div>
+<br>
 
-[![Deploy com Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://gota-sthefanygsas-projects.vercel.app/)
-
-
----
-
-## <img src="assets/imgs/folder.png" width="50" height="50" valign="middle"> Sobre o projeto
-
-O **GOTA** é uma aplicação voltada para a gestão e conscientização sobre o uso racional dos recursos hídricos. A proposta do sistema é oferecer uma interface intuitiva e acessível para apoiar o acompanhamento do consumo de água, promover hábitos sustentáveis e ajudar na identificação de desperdícios.
-
-💻 **Acesse a aplicação rodando ao vivo:** [gota-sthefanygsas-projects.vercel.app](https://gota-sthefanygsas-projects.vercel.app/)
+<p align="center">
+  <a href="#-status-do-projeto">
+    <img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-blue?style=for-the-badge" alt="Status do Projeto">
+  </a>
+</p>
 
 ---
 
-## 🚀 Funcionalidades Principais
+## <img src="assets/imgs/folder.png" width="45" height="45" valign="middle"> PROJETO
 
-- **Visualização de Dados:** Acompanhamento dinâmico dos níveis de consumo de água.
-- **Dicas e Conscientização:** Orientações práticas para redução de desperdício no dia a dia.
-- **Interface Responsiva:** Design otimizado para navegação em dispositivos móveis e desktops.
-- **Deploy Contínuo:** Integrado e hospedado via Vercel para alta disponibilidade e rapidez.
+**EM DESENVOLVIMENTO**: A aplicação já possui funcionalidades operacionais de simulação de tarifas, mas novas ferramentas e cálculos avançados estão sendo desenvolvidos e serão integrados em breve.
+
+O **GOTA** é uma ferramenta desenvolvida para facilitar a compreensão, o controle e a auditoria do consumo de água. 
+
+**Acesse:** [gota-sthefanygsas-projects.vercel.app](https://gota-sthefanygsas-projects.vercel.app/)
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## <img src="assets/imgs/folder.png" width="45" height="45" valign="middle"> TECNOLOGIAS
 
 - **Frontend:** HTML5, CSS3, JavaScript (ES6+)
 - **Deploy & Hosting:** [Vercel](https://vercel.com/)
@@ -34,7 +33,7 @@ O **GOTA** é uma aplicação voltada para a gestão e conscientização sobre o
 
 ---
 
-## 📂 Como Rodar o Projeto Localmente
+## <img src="assets/imgs/folder.png" width="45" height="45" valign="middle"> LOCAL
 
 Para clonar e executar o projeto em sua máquina local, siga os passos abaixo:
 
@@ -50,3 +49,7 @@ cd GOTA
 open index.html  # No macOS
 start index.html # No Windows
 xdg-open index.html # No Linux
+```
+---
+### Sthefany Alves ✦  
+
